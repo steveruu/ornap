@@ -1,3 +1,8 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -14,7 +19,111 @@ import {
 } from "react-icons/fa";
 import { ImDownload } from "react-icons/im";
 
+// Register ScrollTrigger plugin
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 export default function Home() {
+  const heroRef = useRef(null);
+  const featuresRef = useRef(null);
+  const gameplayRef = useRef(null);
+  const screenshotsRef = useRef(null);
+
+  useEffect(() => {
+    // Hero section animation
+    const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    heroTl
+      .fromTo(
+        ".shape",
+        { opacity: 0, scale: 0.8 },
+        { opacity: 0.1, scale: 1, duration: 1.5, stagger: 0.2 }
+      )
+      .fromTo(
+        ".hero-content",
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1 },
+        "-=1"
+      )
+      .fromTo(
+        ".hero-buttons",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 },
+        "-=0.5"
+      );
+
+    // Features section animation
+    gsap.fromTo(
+      ".feature-card",
+      {
+        y: 100,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: featuresRef.current,
+          start: "top 80%",
+        },
+      }
+    );
+
+    // Gameplay section animation
+    const gameplayTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: gameplayRef.current,
+        start: "top 70%",
+      },
+    });
+
+    gameplayTl
+      .fromTo(
+        ".gameplay-image",
+        { x: -100, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1 }
+      )
+      .fromTo(
+        ".gameplay-content",
+        { x: 100, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1 },
+        "-=0.5"
+      )
+      .fromTo(
+        ".gameplay-stat",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.2 },
+        "-=0.5"
+      );
+
+    // Screenshots section animation
+    gsap.fromTo(
+      ".screenshot-item",
+      {
+        scale: 0.9,
+        opacity: 0,
+      },
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 0.2,
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: screenshotsRef.current,
+          start: "top 50%",
+        },
+      }
+    );
+
+    // Cleanup
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-background via-background/95 to-background">
       {/* Navigation - Updated */}
@@ -42,7 +151,10 @@ export default function Home() {
       </header>
 
       {/* Hero Section - Enhanced */}
-      <section className="relative w-full min-h-screen flex items-center justify-center">
+      <section
+        ref={heroRef}
+        className="relative w-full min-h-screen flex items-center justify-center"
+      >
         {/* Geometric Background Shapes */}
         <div className="geometric-shapes">
           <div className="shape shape-1"></div>
@@ -59,7 +171,7 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto hero-content">
           <div className="mt-14  p-12 backdrop-blur-xl relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-50"></div>
 
@@ -81,7 +193,7 @@ export default function Home() {
                 náročné úrovně v tomto vzrušujícím 2D dobrodružství.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center hero-buttons">
                 <button className="btn-primary flex items-center justify-center gap-2 group">
                   <ImDownload className="text-lg group-hover:scale-110 transition-transform" />
                   <span>Stáhnout nyní</span>
@@ -101,6 +213,7 @@ export default function Home() {
 
       {/* Features Section - Enhanced */}
       <section
+        ref={featuresRef}
         id="features"
         className="py-32 px-6 md:px-12 relative overflow-hidden"
       >
@@ -166,6 +279,7 @@ export default function Home() {
 
       {/* Gameplay Section */}
       <section
+        ref={gameplayRef}
         id="gameplay"
         className="py-20 px-6 md:px-12 bg-[rgba(0,0,0,0.3)]"
       >
@@ -175,7 +289,7 @@ export default function Home() {
           </h2>
 
           <div className="flex flex-col lg:flex-row gap-12 items-center">
-            <div className="lg:w-1/2">
+            <div className="lg:w-1/2 gameplay-image">
               <div className="relative aspect-video rounded-lg overflow-hidden border-2 border-[var(--primary)]">
                 <Image
                   src="/gameplay.jpg"
@@ -191,7 +305,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="lg:w-1/2">
+            <div className="lg:w-1/2 gameplay-content">
               <h3 className="text-2xl font-bold mb-4">Ovládněte živly</h3>
               <p className="text-gray-300 mb-6">
                 V Ornapu se pohybujete nebezpečným terénem se stoupající lávou,
@@ -200,23 +314,23 @@ export default function Home() {
                 mocných schopností.
               </p>
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-[rgba(255,255,255,0.05)] p-4 rounded-lg">
+                <div className="gameplay-stat bg-[rgba(255,255,255,0.05)] p-4 rounded-lg">
                   <h4 className="font-bold mb-2">30+ úrovní</h4>
                   <p className="text-sm text-gray-400">
                     Každá s jedinečnými výzvami
                   </p>
                 </div>
-                <div className="bg-[rgba(255,255,255,0.05)] p-4 rounded-lg">
+                <div className="gameplay-stat bg-[rgba(255,255,255,0.05)] p-4 rounded-lg">
                   <h4 className="font-bold mb-2">15 vylepšení</h4>
                   <p className="text-sm text-gray-400">
                     Kombinujte pro speciální efekty
                   </p>
                 </div>
-                <div className="bg-[rgba(255,255,255,0.05)] p-4 rounded-lg">
+                <div className="gameplay-stat bg-[rgba(255,255,255,0.05)] p-4 rounded-lg">
                   <h4 className="font-bold mb-2">5 prostředí</h4>
                   <p className="text-sm text-gray-400">Od jeskyní po sopky</p>
                 </div>
-                <div className="bg-[rgba(255,255,255,0.05)] p-4 rounded-lg">
+                <div className="gameplay-stat bg-[rgba(255,255,255,0.05)] p-4 rounded-lg">
                   <h4 className="font-bold mb-2">Souboje s Bossy</h4>
                   <p className="text-sm text-gray-400">
                     Čekají na vás epické střety
@@ -229,7 +343,11 @@ export default function Home() {
       </section>
 
       {/* Screenshots Section */}
-      <section id="screenshots" className="py-20 px-6 md:px-12">
+      <section
+        ref={screenshotsRef}
+        id="screenshots"
+        className="py-20 px-6 md:px-12"
+      >
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 game-title">
             SNÍMKY OBRAZOVKY
@@ -239,7 +357,7 @@ export default function Home() {
             {[1, 2, 3, 4, 5, 6].map((num) => (
               <div
                 key={num}
-                className="relative aspect-video rounded-lg overflow-hidden feature-card"
+                className="screenshot-item relative aspect-video rounded-lg overflow-hidden feature-card"
               >
                 <Image
                   src={`/screenshot-${num}.jpg`}
