@@ -5,7 +5,6 @@ import {
   FaChessRook,
   FaGem,
   FaTrophy,
-  FaDownload,
   FaGamepad,
   FaDiscord,
   FaTwitter,
@@ -13,109 +12,154 @@ import {
   FaApple,
   FaSteam,
 } from "react-icons/fa";
+import { ImDownload } from "react-icons/im";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Navigation */}
-      <header className="w-full py-4 px-6 md:px-12 flex justify-between items-center">
-        <div className="flex items-center gap-2">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background via-background/95 to-background">
+      {/* Navigation - Updated */}
+      <header className="w-full py-6 px-6 md:px-12 flex justify-between items-center fixed top-0 z-50 glass-effect">
+        <div className="flex items-center gap-3">
           <h1 className="text-2xl font-bold game-title">ORNAP</h1>
         </div>
         <nav className="hidden md:flex gap-8">
-          <a href="#features" className="nav-link">
-            Features
-          </a>
-          <a href="#gameplay" className="nav-link">
-            Gameplay
-          </a>
-          <a href="#screenshots" className="nav-link">
-            Screenshots
-          </a>
-          <a href="#download" className="nav-link">
-            Download
-          </a>
+          {["Funkce", "Hratelnost", "Snímky", "Stáhnout"].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="nav-link text-sm font-medium text-gray-300 hover:text-white transition-colors"
+            >
+              {item}
+            </a>
+          ))}
         </nav>
         <div>
-          <button className="btn-primary">Play Now</button>
+          <button className="btn-primary flex items-center gap-2">
+            <FaGamepad className="text-lg" />
+            <span>Hrát Nyní</span>
+          </button>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative w-full h-[80vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[var(--background)] z-10"></div>
+      {/* Hero Section - Enhanced */}
+      <section className="relative w-full min-h-screen flex items-center justify-center">
+        {/* Geometric Background Shapes */}
+        <div className="geometric-shapes">
+          <div className="shape shape-1"></div>
+          <div className="shape shape-2"></div>
+          <div className="shape shape-3"></div>
+          <div className="shape-ring"></div>
         </div>
-        <div className="relative z-10 text-center max-w-4xl px-6">
-          <h1 className="text-4xl md:text-6xl font-bold game-title mb-4">
-            RUN. COLLECT. SURVIVE.
-          </h1>
-          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-            Escape the rising lava, collect powerful upgrades, and conquer
-            challenging levels in this thrilling 2D adventure.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="btn-primary flex items-center justify-center gap-2">
-              <FaDownload /> Download Now
-            </button>
-            <button className="btn-secondary flex items-center justify-center gap-2">
-              <FaGamepad /> Watch Trailer
-            </button>
+
+        {/* Animated Gradient Orbs */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-secondary/10 rounded-full filter blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-accent/10 rounded-full filter blur-3xl animate-pulse delay-2000"></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+          <div className="mt-14  p-12 backdrop-blur-xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-50"></div>
+
+            <div className="relative z-8">
+              <div className="inline-block mb-6 px-6 py-2 rounded-full glass-effect">
+                <span className="text-md font-medium bg-gradient-to-r from-primary to-secondary bg-clip-text text-white">
+                  🎮 Vítejte v herním zážitku nové generace
+                </span>
+              </div>
+
+              <h1 className="text-5xl md:text-7xl font-bold game-title mb-6 leading-tight glow-text">
+                RUN. COLLECT.
+                <br />
+                SURVIVE.
+              </h1>
+
+              <p className="text-xl md:text-2xl mb-10 max-w-2xl mx-auto text-gray-300 leading-relaxed">
+                Unikněte stoupající lávě, sbírejte silná vylepšení a dobyjte
+                náročné úrovně v tomto vzrušujícím 2D dobrodružství.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button className="btn-primary flex items-center justify-center gap-2 group">
+                  <ImDownload className="text-lg group-hover:scale-110 transition-transform" />
+                  <span>Stáhnout nyní</span>
+                </button>
+                <button className="btn-secondary flex items-center justify-center gap-2 group glass-effect">
+                  <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[12px] border-l-white border-b-[6px] border-b-transparent group-hover:animate-pulse" />
+                  <span>Přehrát ukázku</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* Bottom Gradient */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent"></div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-20 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 game-title">
-            GAME FEATURES
-          </h2>
+      {/* Features Section - Enhanced */}
+      <section
+        id="features"
+        className="py-32 px-6 md:px-12 relative overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent"></div>
+        <div className="max-w-7xl mx-auto relative">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold game-title mb-6 uppercase">
+              Herní funkce
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto uppercase">
+              Objevte, co dělá Ornap nezapomenutelným herním zážitkem
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="feature-card p-6">
-              <div className="w-16 h-16 rounded-full bg-[rgba(255,61,0,0.2)] flex items-center justify-center mb-4">
-                <FaFire className="text-[var(--lava)] text-2xl" />
+            {[
+              {
+                icon: FaFire,
+                title: "Stoupající láva",
+                description:
+                  "Závoďte s časem, jak stoupá žhavá láva, vytvářející intenzivní tlak na rychlý pohyb.",
+                color: "var(--lava)",
+                iconColor: "text-[var(--lava)]",
+              },
+              {
+                icon: FaGem,
+                title: "Vylepšení",
+                description:
+                  "Sbírejte unikátní vylepšení, která zlepší vaše schopnosti a pomohou vám déle přežít.",
+                color: "var(--powerup)",
+                iconColor: "text-[var(--powerup)]",
+              },
+              {
+                icon: FaChessRook,
+                title: "Skryté truhly",
+                description:
+                  "Objevujte a odemykejte tajné truhly obsahující vzácné předměty a speciální schopnosti.",
+                color: "var(--chest)",
+                iconColor: "text-[var(--chest)]",
+              },
+              {
+                icon: FaTrophy,
+                title: "Náročné úrovně",
+                description:
+                  "Postupujte stále obtížnějšími úrovněmi s jedinečnými překážkami a hádankami.",
+                color: "var(--accent)",
+                iconColor: "text-[var(--accent)]",
+              },
+            ].map((feature, index) => (
+              <div key={index} className="feature-card p-8 group">
+                <feature.icon
+                  className={`${feature.iconColor} text-2xl mb-6`}
+                />
+                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                <p className="text-gray-400 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
-              <h3 className="text-xl font-bold mb-2">Rising Lava</h3>
-              <p className="text-gray-300">
-                Race against time as molten lava rises, creating intense
-                pressure to move quickly.
-              </p>
-            </div>
-
-            <div className="feature-card p-6">
-              <div className="w-16 h-16 rounded-full bg-[rgba(0,230,118,0.2)] flex items-center justify-center mb-4">
-                <FaGem className="text-[var(--powerup)] text-2xl" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Power Ups</h3>
-              <p className="text-gray-300">
-                Collect unique power-ups that enhance your abilities and help
-                you survive longer.
-              </p>
-            </div>
-
-            <div className="feature-card p-6">
-              <div className="w-16 h-16 rounded-full bg-[rgba(255,215,0,0.2)] flex items-center justify-center mb-4">
-                <FaChessRook className="text-[var(--chest)] text-2xl" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Hidden Chests</h3>
-              <p className="text-gray-300">
-                Discover and unlock secret chests containing rare items and
-                special abilities.
-              </p>
-            </div>
-
-            <div className="feature-card p-6">
-              <div className="w-16 h-16 rounded-full bg-[rgba(255,193,7,0.2)] flex items-center justify-center mb-4">
-                <FaTrophy className="text-[var(--accent)] text-2xl" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Challenging Levels</h3>
-              <p className="text-gray-300">
-                Progress through increasingly difficult levels with unique
-                obstacles and puzzles.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -127,7 +171,7 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 game-title">
-            GAMEPLAY
+            HRATELNOST
           </h2>
 
           <div className="flex flex-col lg:flex-row gap-12 items-center">
@@ -148,41 +192,35 @@ export default function Home() {
             </div>
 
             <div className="lg:w-1/2">
-              <h3 className="text-2xl font-bold mb-4">Master the Elements</h3>
+              <h3 className="text-2xl font-bold mb-4">Ovládněte živly</h3>
               <p className="text-gray-300 mb-6">
-                In Ornap, you'll navigate through treacherous terrain as lava
-                rises from below. Quick thinking and precise movements are
-                essential as you collect power-ups that grant special abilities
-                like double jumps, speed boosts, and temporary lava immunity.
-              </p>
-              <p className="text-gray-300 mb-6">
-                Each level presents unique challenges with moving platforms,
-                falling obstacles, and hidden pathways. Discover secret chests
-                containing rare items that can be combined to unlock powerful
-                new abilities.
+                V Ornapu se pohybujete nebezpečným terénem se stoupající lávou,
+                sbíráte vylepšení pro speciální schopnosti a objevujete tajné
+                truhly s předměty, které lze kombinovat k odemčení nových
+                mocných schopností.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-[rgba(255,255,255,0.05)] p-4 rounded-lg">
-                  <h4 className="font-bold mb-2">30+ Levels</h4>
+                  <h4 className="font-bold mb-2">30+ úrovní</h4>
                   <p className="text-sm text-gray-400">
-                    Each with unique challenges
+                    Každá s jedinečnými výzvami
                   </p>
                 </div>
                 <div className="bg-[rgba(255,255,255,0.05)] p-4 rounded-lg">
-                  <h4 className="font-bold mb-2">15 Power-ups</h4>
+                  <h4 className="font-bold mb-2">15 vylepšení</h4>
                   <p className="text-sm text-gray-400">
-                    Combine for special effects
+                    Kombinujte pro speciální efekty
                   </p>
                 </div>
                 <div className="bg-[rgba(255,255,255,0.05)] p-4 rounded-lg">
-                  <h4 className="font-bold mb-2">5 Environments</h4>
-                  <p className="text-sm text-gray-400">
-                    From caves to volcanoes
-                  </p>
+                  <h4 className="font-bold mb-2">5 prostředí</h4>
+                  <p className="text-sm text-gray-400">Od jeskyní po sopky</p>
                 </div>
                 <div className="bg-[rgba(255,255,255,0.05)] p-4 rounded-lg">
-                  <h4 className="font-bold mb-2">Boss Battles</h4>
-                  <p className="text-sm text-gray-400">Epic encounters await</p>
+                  <h4 className="font-bold mb-2">Souboje s Bossy</h4>
+                  <p className="text-sm text-gray-400">
+                    Čekají na vás epické střety
+                  </p>
                 </div>
               </div>
             </div>
@@ -194,7 +232,7 @@ export default function Home() {
       <section id="screenshots" className="py-20 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 game-title">
-            SCREENSHOTS
+            SNÍMKY OBRAZOVKY
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -205,7 +243,7 @@ export default function Home() {
               >
                 <Image
                   src={`/screenshot-${num}.jpg`}
-                  alt={`Game Screenshot ${num}`}
+                  alt={`Snímek ze hry ${num}`}
                   fill
                   className="object-cover"
                 />
@@ -219,11 +257,11 @@ export default function Home() {
       <section id="download" className="py-20 px-6 md:px-12 lava-animation">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-            Ready to Play?
+            Připraveni Hrát?
           </h2>
           <p className="text-xl mb-8 text-white max-w-2xl mx-auto">
-            Download Ornap now and begin your adventure. Available on multiple
-            platforms.
+            Stáhněte si Ornap nyní a začněte své dobrodružství. Dostupné na více
+            platformách.
           </p>
 
           <div className="flex flex-wrap justify-center gap-6">
@@ -231,9 +269,9 @@ export default function Home() {
               href="#"
               className="bg-white text-[var(--background)] py-4 px-8 rounded-lg flex items-center gap-3 hover:bg-gray-100 transition-colors"
             >
-              <FaWindows />
+              <FaWindows className="text-xl" />
               <div className="text-left">
-                <div className="text-sm">Download for</div>
+                <div className="text-sm">Stáhnout pro</div>
                 <div className="font-bold">Windows</div>
               </div>
             </a>
@@ -242,9 +280,9 @@ export default function Home() {
               href="#"
               className="bg-white text-[var(--background)] py-4 px-8 rounded-lg flex items-center gap-3 hover:bg-gray-100 transition-colors"
             >
-              <FaApple />
+              <FaApple className="text-xl" />
               <div className="text-left">
-                <div className="text-sm">Download for</div>
+                <div className="text-sm">Stáhnout pro</div>
                 <div className="font-bold">macOS</div>
               </div>
             </a>
@@ -253,36 +291,13 @@ export default function Home() {
               href="#"
               className="bg-white text-[var(--background)] py-4 px-8 rounded-lg flex items-center gap-3 hover:bg-gray-100 transition-colors"
             >
-              <FaSteam />
+              <FaSteam className="text-xl" />
               <div className="text-left">
-                <div className="text-sm">Available on</div>
+                <div className="text-sm">Dostupné na</div>
                 <div className="font-bold">Steam</div>
               </div>
             </a>
           </div>
-        </div>
-      </section>
-
-      {/* Newsletter */}
-      <section className="py-16 px-6 md:px-12 bg-[rgba(0,0,0,0.3)]">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Stay Updated</h2>
-          <p className="mb-6">
-            Subscribe to our newsletter for updates, tips, and exclusive
-            content.
-          </p>
-
-          <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="flex-grow px-4 py-3 rounded-lg bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] focus:outline-none focus:border-[var(--primary)]"
-              required
-            />
-            <button type="submit" className="btn-primary whitespace-nowrap">
-              Subscribe
-            </button>
-          </form>
         </div>
       </section>
 
@@ -318,17 +333,14 @@ export default function Home() {
 
           <div className="border-t border-[rgba(255,255,255,0.1)] pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-400 mb-4 md:mb-0">
-              © 2024 Ornap Game. All rights reserved.
+              © 2025 HATS Software. Všechna práva vyhrazena.
             </p>
             <div className="flex gap-6">
-              <a href="#" className="text-sm text-gray-400 hover:text-white">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-sm text-gray-400 hover:text-white">
-                Terms of Service
-              </a>
-              <a href="#" className="text-sm text-gray-400 hover:text-white">
-                Contact
+              <a
+                href="https://4hats.vercel.app"
+                className="text-sm text-gray-400 hover:text-white"
+              >
+                HATS Software
               </a>
             </div>
           </div>

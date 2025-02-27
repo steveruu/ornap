@@ -19,9 +19,9 @@ module.exports = {
         chest: "var(--chest)",
       },
       fontFamily: {
-        sans: ["var(--font-poppins)", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "monospace"],
-        display: ["var(--font-orbitron)", "sans-serif"],
+        sans: ['var(--font-poppins)', ...defaultTheme.fontFamily.sans],
+        display: ['var(--font-orbitron)', ...defaultTheme.fontFamily.sans],
+        mono: ['var(--font-geist-mono)', ...defaultTheme.fontFamily.mono],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
